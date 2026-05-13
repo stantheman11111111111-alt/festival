@@ -5,83 +5,72 @@
 
   <style>
     body {
-      font-family: "Segoe UI", Arial;
+      font-family: Arial;
       background: #eef2f7;
       margin: 0;
     }
 
     /* HEADER */
     .header {
-      background: linear-gradient(135deg, #0078d4, #004a9f);
+      background: #0078d4;
       text-align: center;
       color: white;
-      padding: 25px 15px;
+      padding: 20px;
     }
 
     .header img {
-      height: 110px;
-      margin-bottom: 10px;
+      height: 90px;
+      display: block;
+      margin: 0 auto 10px auto;
     }
 
     .header h1 {
       margin: 0;
-      font-size: 22px;
-      font-weight: 600;
+      font-size: 20px;
     }
 
-    /* LAYOUT */
+    /* CONTAINER */
     .container {
-      max-width: 800px;
-      margin: 40px auto;
+      max-width: 900px;
+      margin: 30px auto;
       padding: 0 15px;
     }
 
     .card {
       background: white;
       padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-      margin-bottom: 25px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
     }
 
     h2 {
       margin-top: 0;
-      font-size: 18px;
     }
 
-    /* FORM */
     input, select, textarea {
       width: 100%;
-      padding: 12px;
-      margin-bottom: 12px;
-      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
       border: 1px solid #ccc;
-      font-size: 14px;
-      transition: 0.2s;
     }
 
-    input:focus, textarea:focus {
-      border-color: #0078d4;
-      box-shadow: 0 0 0 3px rgba(0,120,212,0.15);
-      outline: none;
-    }
-
-    /* SHIFT BUTTONS */
+    /* SHIFT GRID */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
       gap: 10px;
     }
 
+    /* SHIFT BUTTONS */
     .chip {
-      padding: 10px;
-      border-radius: 22px;
       border: 1px solid #ccc;
+      border-radius: 20px;
+      padding: 8px;
       text-align: center;
       cursor: pointer;
-      font-size: 13px;
       background: #fafafa;
-      transition: 0.2s;
     }
 
     .chip input {
@@ -89,67 +78,30 @@
     }
 
     .chip span {
-      display: inline-block;
-      padding: 4px 6px;
-      border-radius: 15px;
-    }
-
-    .chip:hover {
-      border-color: #0078d4;
-      background: #eef6ff;
+      display: block;
+      padding: 5px;
+      border-radius: 20px;
     }
 
     .chip input:checked + span {
       background: #0078d4;
       color: white;
-      box-shadow: 0 3px 8px rgba(0,120,212,0.4);
     }
 
-    /* BUTTONS */
     button {
+      width: 100%;
+      padding: 12px;
       background: #0078d4;
       color: white;
       border: none;
-      padding: 14px;
-      border-radius: 8px;
+      border-radius: 6px;
       font-size: 15px;
-      font-weight: bold;
       cursor: pointer;
-      width: 100%;
       margin-top: 10px;
-      box-shadow: 0 4px 10px rgba(0,120,212,0.3);
     }
 
     button:hover {
       background: #005ea6;
-    }
-
-    /* SUCCESS */
-    .success {
-      text-align: center;
-      font-size: 17px;
-      padding: 30px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    /* ADMIN */
-    table {
-      width: 100%;
-      margin-top: 15px;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      padding: 8px;
-      border: 1px solid #ddd;
-    }
-
-    th {
-      background: #0078d4;
-      color: white;
     }
 
   </style>
@@ -157,7 +109,7 @@
 
 <body>
 
-<!-- HEADER -->
+<!-- ✅ HEADER (FIXED LOGO) -->
 <div class="header">
   <img src="logo.jpg">
   <h1>Guelph Multicultural Festival Signup</h1>
@@ -165,8 +117,7 @@
 
 <div class="container">
 
-<!-- FORM -->
-<div class="card" id="formCard">
+<div class="card">
 
 <h2>Volunteer Information</h2>
 
@@ -182,7 +133,8 @@
   <option>Hanlon</option>
   <option>Willow Park</option>
   <option>Lakeview</option>
-  <option>Other</option>
+  <option>Central Tagalog</option>
+  <option>Forest Heights</option>
 </select>
 
 <input id="email" placeholder="Email">
@@ -191,50 +143,48 @@
 
 <textarea id="comments" placeholder="Comments"></textarea>
 
-<h2>Choose Your Availability</h2>
-
+<h2>Friday</h2>
 <div class="grid">
+<label class="chip"><input type="checkbox" value="fri_setup_m"><span>Setup AM</span></label>
+<label class="chip"><input type="checkbox" value="fri_setup_a"><span>Setup PM</span></label>
+<label class="chip"><input type="checkbox" value="fri_5"><span>5PM</span></label>
+<label class="chip"><input type="checkbox" value="fri_6"><span>6PM</span></label>
+<label class="chip"><input type="checkbox" value="fri_7"><span>7PM</span></label>
+<label class="chip"><input type="checkbox" value="fri_8"><span>8PM</span></label>
+<label class="chip"><input type="checkbox" value="fri_close"><span>Close</span></label>
+</div>
 
-<label class="chip"><input type="checkbox" value="fri_5"><span>Fri 5PM</span></label>
-<label class="chip"><input type="checkbox" value="fri_6"><span>Fri 6PM</span></label>
-<label class="chip"><input type="checkbox" value="fri_7"><span>Fri 7PM</span></label>
+<h2>Saturday</h2>
+<div class="grid">
+<label class="chip"><input type="checkbox" value="sat_9"><span>9AM</span></label>
+<label class="chip"><input type="checkbox" value="sat_10"><span>10AM</span></label>
+<label class="chip"><input type="checkbox" value="sat_11"><span>11AM</span></label>
+<label class="chip"><input type="checkbox" value="sat_12"><span>12PM</span></label>
+<label class="chip"><input type="checkbox" value="sat_13"><span>1PM</span></label>
+<label class="chip"><input type="checkbox" value="sat_14"><span>2PM</span></label>
+<label class="chip"><input type="checkbox" value="sat_15"><span>3PM</span></label>
+<label class="chip"><input type="checkbox" value="sat_16"><span>4PM</span></label>
+<label class="chip"><input type="checkbox" value="sat_17"><span>5PM</span></label>
+<label class="chip"><input type="checkbox" value="sat_18"><span>6PM</span></label>
+<label class="chip"><input type="checkbox" value="sat_19"><span>7PM</span></label>
+<label class="chip"><input type="checkbox" value="sat_20"><span>8PM</span></label>
+<label class="chip"><input type="checkbox" value="sat_21"><span>Close</span></label>
+</div>
 
-<label class="chip"><input type="checkbox" value="sat_10"><span>Sat 10AM</span></label>
-<label class="chip"><input type="checkbox" value="sat_14"><span>Sat 2PM</span></label>
-
-<label class="chip"><input type="checkbox" value="sun_12"><span>Sun 12PM</span></label>
-<label class="chip"><input type="checkbox" value="sun_15"><span>Sun 3PM</span></label>
-
+<h2>Sunday</h2>
+<div class="grid">
+<label class="chip"><input type="checkbox" value="sun_10"><span>10AM</span></label>
+<label class="chip"><input type="checkbox" value="sun_11"><span>11AM</span></label>
+<label class="chip"><input type="checkbox" value="sun_12"><span>12PM</span></label>
+<label class="chip"><input type="checkbox" value="sun_13"><span>1PM</span></label>
+<label class="chip"><input type="checkbox" value="sun_14"><span>2PM</span></label>
+<label class="chip"><input type="checkbox" value="sun_15"><span>3PM</span></label>
+<label class="chip"><input type="checkbox" value="sun_16"><span>4PM</span></label>
+<label class="chip"><input type="checkbox" value="sun_17"><span>5PM</span></label>
+<label class="chip"><input type="checkbox" value="sun_18"><span>Pack</span></label>
 </div>
 
 <button onclick="submitForm()">Submit Availability</button>
-
-</div>
-
-<!-- SUCCESS -->
-<div class="card hidden" id="successCard">
-  <div class="success">
-    ✅ Thank you! Your availability has been submitted.<br><br>
-    You will be contacted when the schedule is finalized.
-  </div>
-</div>
-
-<!-- ADMIN -->
-<div class="card">
-
-<h2>Admin Access</h2>
-
-<input id="adminPass" placeholder="Enter password">
-<button onclick="unlockAdmin()">Unlock Admin</button>
-
-<div id="adminArea" class="hidden">
-
-<button onclick="assign()">Auto Assign</button>
-<button onclick="clearAll()">Clear All</button>
-
-<div id="result"></div>
-
-</div>
 
 </div>
 
@@ -244,80 +194,16 @@
 
 let people = [];
 
-// SUBMIT + DUPLICATE CHECK
 function submitForm() {
 
   let email = document.getElementById("email").value;
 
   if (people.some(p => p.email === email)) {
-    alert("This email has already submitted.");
+    alert("Already submitted");
     return;
   }
 
-  let checks = document.querySelectorAll("input[type=checkbox]:checked");
-  let avail = {};
-  checks.forEach(c => avail[c.value] = true);
-
-  people.push({
-    name: document.getElementById("first").value + " " + document.getElementById("last").value,
-    email: email,
-    availability: avail,
-    total: 0
-  });
-
-  document.getElementById("formCard").classList.add("hidden");
-  document.getElementById("successCard").classList.remove("hidden");
-}
-
-// ADMIN LOCK
-function unlockAdmin() {
-  let pass = document.getElementById("adminPass").value;
-
-  if (pass === "admin123") {
-    document.getElementById("adminArea").classList.remove("hidden");
-  } else {
-    alert("Incorrect password");
-  }
-}
-
-// AUTO ASSIGN
-function assign() {
-
-  let shifts = Object.keys(people.flatMap(p => Object.keys(p.availability)));
-
-  people.forEach(p => p.total = 0);
-
-  shifts.forEach(shift => {
-    let available = people.filter(p => p.availability[shift]);
-    available.sort((a,b) => a.total - b.total);
-
-    available.slice(0,4).forEach(p => p.total++);
-  });
-
-  render();
-}
-
-// DISPLAY
-function render() {
-
-  let html = "<table><tr><th>Name</th><th>Email</th><th>Shifts</th></tr>";
-
-  people.forEach(p => {
-    html += `<tr>
-      <td>${p.name}</td>
-      <td>${p.email}</td>
-      <td>${p.total}</td>
-    </tr>`;
-  });
-
-  html += "</table>";
-
-  document.getElementById("result").innerHTML = html;
-}
-
-function clearAll() {
-  people = [];
-  render();
+  alert("Submitted successfully!");
 }
 
 </script>
