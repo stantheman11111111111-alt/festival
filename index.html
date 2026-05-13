@@ -5,89 +5,151 @@
 
   <style>
     body {
-      font-family: Arial;
-      background: #f2f5f9;
+      font-family: "Segoe UI", Arial;
+      background: #eef2f7;
       margin: 0;
     }
 
+    /* HEADER */
     .header {
-      background: #0078d4;
-      color: white;
-      padding: 15px;
+      background: linear-gradient(135deg, #0078d4, #004a9f);
       text-align: center;
+      color: white;
+      padding: 25px 15px;
     }
 
     .header img {
-      height: 140px;
+      height: 110px;
       margin-bottom: 10px;
     }
 
+    .header h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    /* LAYOUT */
     .container {
-      max-width: 950px;
-      margin: 30px auto;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 15px;
     }
 
     .card {
       background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
     }
 
+    h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    /* FORM */
     input, select, textarea {
       width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 8px;
       border: 1px solid #ccc;
+      font-size: 14px;
+      transition: 0.2s;
     }
 
+    input:focus, textarea:focus {
+      border-color: #0078d4;
+      box-shadow: 0 0 0 3px rgba(0,120,212,0.15);
+      outline: none;
+    }
+
+    /* SHIFT BUTTONS */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
       gap: 10px;
     }
 
     .chip {
+      padding: 10px;
+      border-radius: 22px;
       border: 1px solid #ccc;
-      border-radius: 20px;
-      padding: 8px;
       text-align: center;
       cursor: pointer;
+      font-size: 13px;
+      background: #fafafa;
+      transition: 0.2s;
     }
 
     .chip input {
       display: none;
     }
 
+    .chip span {
+      display: inline-block;
+      padding: 4px 6px;
+      border-radius: 15px;
+    }
+
+    .chip:hover {
+      border-color: #0078d4;
+      background: #eef6ff;
+    }
+
     .chip input:checked + span {
       background: #0078d4;
       color: white;
-      border-radius: 20px;
-      padding: 6px;
-      display: inline-block;
+      box-shadow: 0 3px 8px rgba(0,120,212,0.4);
     }
 
+    /* BUTTONS */
     button {
       background: #0078d4;
       color: white;
       border: none;
-      padding: 12px;
-      border-radius: 6px;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: bold;
       cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+      box-shadow: 0 4px 10px rgba(0,120,212,0.3);
+    }
+
+    button:hover {
+      background: #005ea6;
+    }
+
+    /* SUCCESS */
+    .success {
+      text-align: center;
+      font-size: 17px;
+      padding: 30px;
     }
 
     .hidden {
       display: none;
     }
 
-    .success {
-      text-align: center;
-      padding: 30px;
-      font-size: 18px;
+    /* ADMIN */
+    table {
+      width: 100%;
+      margin-top: 15px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background: #0078d4;
+      color: white;
     }
 
   </style>
@@ -95,25 +157,25 @@
 
 <body>
 
+<!-- HEADER -->
 <div class="header">
-  <img src="st,small,507x507-pad,600x600,f8f8f8.jpg">
-  <div>Guelph Multicultural Festival Signup</div>
+  <img src="logo.jpg">
+  <h1>Guelph Multicultural Festival Signup</h1>
 </div>
-
 
 <div class="container">
 
-<!-- ✅ FORM -->
+<!-- FORM -->
 <div class="card" id="formCard">
 
-<h3>Volunteer Information</h3>
+<h2>Volunteer Information</h2>
 
 <select id="approved">
   <option>Approved</option>
   <option>Not Yet Approved</option>
 </select>
 
-<input id="first" placeholder="First Names">
+<input id="first" placeholder="First Names (include family)">
 <input id="last" placeholder="Last Name">
 
 <select id="congregation">
@@ -129,40 +191,49 @@
 
 <textarea id="comments" placeholder="Comments"></textarea>
 
-<h3>Shifts</h3>
+<h2>Choose Your Availability</h2>
 
 <div class="grid">
-<label class="chip"><input type="checkbox" value="fri_5"><span>Fri 5 PM</span></label>
-<label class="chip"><input type="checkbox" value="fri_6"><span>Fri 6 PM</span></label>
-<label class="chip"><input type="checkbox" value="sat_10"><span>Sat 10 AM</span></label>
-<label class="chip"><input type="checkbox" value="sat_14"><span>Sat 2 PM</span></label>
-<label class="chip"><input type="checkbox" value="sun_12"><span>Sun 12 PM</span></label>
-<label class="chip"><input type="checkbox" value="sun_15"><span>Sun 3 PM</span></label>
+
+<label class="chip"><input type="checkbox" value="fri_5"><span>Fri 5PM</span></label>
+<label class="chip"><input type="checkbox" value="fri_6"><span>Fri 6PM</span></label>
+<label class="chip"><input type="checkbox" value="fri_7"><span>Fri 7PM</span></label>
+
+<label class="chip"><input type="checkbox" value="sat_10"><span>Sat 10AM</span></label>
+<label class="chip"><input type="checkbox" value="sat_14"><span>Sat 2PM</span></label>
+
+<label class="chip"><input type="checkbox" value="sun_12"><span>Sun 12PM</span></label>
+<label class="chip"><input type="checkbox" value="sun_15"><span>Sun 3PM</span></label>
+
 </div>
 
-<button onclick="submitForm()">Submit</button>
+<button onclick="submitForm()">Submit Availability</button>
 
 </div>
 
-<!-- ✅ SUCCESS SCREEN -->
+<!-- SUCCESS -->
 <div class="card hidden" id="successCard">
   <div class="success">
     ✅ Thank you! Your availability has been submitted.<br><br>
-    You will be contacted when scheduling is finalized.
+    You will be contacted when the schedule is finalized.
   </div>
 </div>
 
-<!-- ✅ ADMIN -->
+<!-- ADMIN -->
 <div class="card">
-<h3>Admin Panel</h3>
 
-<input id="adminPass" placeholder="Enter Admin Password">
-<button onclick="unlockAdmin()">Unlock</button>
+<h2>Admin Access</h2>
+
+<input id="adminPass" placeholder="Enter password">
+<button onclick="unlockAdmin()">Unlock Admin</button>
 
 <div id="adminArea" class="hidden">
-  <button onclick="assign()">Auto Assign</button>
-  <button onclick="clearAll()">Clear</button>
-  <div id="result"></div>
+
+<button onclick="assign()">Auto Assign</button>
+<button onclick="clearAll()">Clear All</button>
+
+<div id="result"></div>
+
 </div>
 
 </div>
@@ -172,17 +243,14 @@
 <script>
 
 let people = [];
-let adminUnlocked = false;
 
-// ✅ SUBMIT FORM (WITH DUPLICATE CHECK)
+// SUBMIT + DUPLICATE CHECK
 function submitForm() {
 
   let email = document.getElementById("email").value;
 
-  // prevent duplicates
-  let exists = people.some(p => p.email === email);
-  if (exists) {
-    alert("You have already submitted!");
+  if (people.some(p => p.email === email)) {
+    alert("This email has already submitted.");
     return;
   }
 
@@ -193,56 +261,46 @@ function submitForm() {
   people.push({
     name: document.getElementById("first").value + " " + document.getElementById("last").value,
     email: email,
-    congregation: document.getElementById("congregation").value,
-    lang: document.getElementById("lang").value,
     availability: avail,
     total: 0
   });
 
-  // ✅ SHOW SUCCESS SCREEN
   document.getElementById("formCard").classList.add("hidden");
   document.getElementById("successCard").classList.remove("hidden");
 }
 
-// ✅ ADMIN PASSWORD
+// ADMIN LOCK
 function unlockAdmin() {
   let pass = document.getElementById("adminPass").value;
 
   if (pass === "admin123") {
-    adminUnlocked = true;
     document.getElementById("adminArea").classList.remove("hidden");
   } else {
-    alert("Wrong password");
+    alert("Incorrect password");
   }
 }
 
-// ✅ AUTO ASSIGN
+// AUTO ASSIGN
 function assign() {
+
   let shifts = Object.keys(people.flatMap(p => Object.keys(p.availability)));
 
   people.forEach(p => p.total = 0);
 
   shifts.forEach(shift => {
     let available = people.filter(p => p.availability[shift]);
-
     available.sort((a,b) => a.total - b.total);
-    let selected = available.slice(0,4);
 
-    selected.forEach(p => p.total++);
+    available.slice(0,4).forEach(p => p.total++);
   });
 
   render();
 }
 
-// ✅ CLEAR
-function clearAll() {
-  people = [];
-  render();
-}
-
-// ✅ DISPLAY
+// DISPLAY
 function render() {
-  let html = "<table><tr><th>Name</th><th>Email</th><th>Total</th></tr>";
+
+  let html = "<table><tr><th>Name</th><th>Email</th><th>Shifts</th></tr>";
 
   people.forEach(p => {
     html += `<tr>
@@ -257,8 +315,12 @@ function render() {
   document.getElementById("result").innerHTML = html;
 }
 
+function clearAll() {
+  people = [];
+  render();
+}
+
 </script>
 
 </body>
 </html>
-``
