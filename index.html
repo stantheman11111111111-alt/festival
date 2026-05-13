@@ -5,8 +5,11 @@
   <style>
     body { font-family: Arial; padding: 20px; }
     label { display: block; margin: 5px 0; }
-    table { border-collapse: collapse; margin-top: 20px; }
+    table { border-collapse: collapse; margin-top: 20px; width: 100%; }
     td, th { border: 1px solid #ccc; padding: 6px; }
+    h3 { margin-top: 20px; }
+    input, select, textarea { margin-bottom: 5px; width: 250px; }
+    button { margin-top: 10px; padding: 6px 12px; }
   </style>
 </head>
 
@@ -14,12 +17,50 @@
 
 <h2>Guelph Multicultural Festival Signup</h2>
 
-<input id="first" placeholder="First Name"><br>
-<input id="last" placeholder="Last Name"><br>
-<input id="email" placeholder="Email"><br>
-<input id="lang" placeholder="Languages"><br>
+<label>Approved by Congregation Service Committee?</label>
+<select id="approved">
+  <option>Yes</option>
+  <option>No</option>
+</select>
+
+<br>
+
+<input id="first" placeholder="First Names (include family)">
+<input id="last" placeholder="Last Name">
+
+<label>Congregation</label>
+<select id="congregation">
+  <option>Hanlon</option>
+  <option>Willow Park</option>
+  <option>Lakeview</option>
+  <option>Central Tagalog</option>
+  <option>Forest Heights</option>
+  <option>Amharic</option>
+  <option>Arabic</option>
+  <option>Chinese</option>
+  <option>Hindi</option>
+  <option>Punjabi</option>
+  <option>Russian</option>
+  <option>Spanish</option>
+  <option>Tigrinya</option>
+  <option>Twi</option>
+  <option>Other</option>
+</select>
+
+<br>
+
+<input id="email" placeholder="Email">
+<input id="phone" placeholder="Cell Phone Number">
+<input id="lang" placeholder="Languages (other than English)">
+
+<br>
+
+<label>Comments</label>
+<textarea id="comments" rows="3"></textarea>
 
 <h3>Friday</h3>
+<label><input type="checkbox" value="fri_setup_m"> Setup Morning</label>
+<label><input type="checkbox" value="fri_setup_a"> Setup Afternoon</label>
 <label><input type="checkbox" value="fri_5"> 5 PM</label>
 <label><input type="checkbox" value="fri_6"> 6 PM</label>
 <label><input type="checkbox" value="fri_7"> 7 PM</label>
@@ -28,14 +69,29 @@
 
 <h3>Saturday</h3>
 <label><input type="checkbox" value="sat_9"> 9 AM</label>
+<label><input type="checkbox" value="sat_10"> 10 AM</label>
+<label><input type="checkbox" value="sat_11"> 11 AM</label>
 <label><input type="checkbox" value="sat_12"> 12 PM</label>
+<label><input type="checkbox" value="sat_13"> 1 PM</label>
+<label><input type="checkbox" value="sat_14"> 2 PM</label>
 <label><input type="checkbox" value="sat_15"> 3 PM</label>
+<label><input type="checkbox" value="sat_16"> 4 PM</label>
+<label><input type="checkbox" value="sat_17"> 5 PM</label>
 <label><input type="checkbox" value="sat_18"> 6 PM</label>
+<label><input type="checkbox" value="sat_19"> 7 PM</label>
+<label><input type="checkbox" value="sat_20"> 8 PM</label>
+<label><input type="checkbox" value="sat_21"> 9 PM (Close)</label>
 
 <h3>Sunday</h3>
 <label><input type="checkbox" value="sun_10"> 10 AM</label>
+<label><input type="checkbox" value="sun_11"> 11 AM</label>
+<label><input type="checkbox" value="sun_12"> 12 PM</label>
+<label><input type="checkbox" value="sun_13"> 1 PM</label>
 <label><input type="checkbox" value="sun_14"> 2 PM</label>
-<label><input type="checkbox" value="sun_18"> 6 PM</label>
+<label><input type="checkbox" value="sun_15"> 3 PM</label>
+<label><input type="checkbox" value="sun_16"> 4 PM</label>
+<label><input type="checkbox" value="sun_17"> 5 PM</label>
+<label><input type="checkbox" value="sun_18"> 6 PM (Pack-up)</label>
 
 <button onclick="submitForm()">Submit</button>
 
@@ -43,6 +99,7 @@
 
 <h2>Admin Panel</h2>
 <button onclick="assign()">Auto Assign</button>
+<button onclick="clearAll()">Clear All</button>
 
 <div id="result"></div>
 
@@ -57,24 +114,24 @@ function submitForm() {
 
   people.push({
     name: document.getElementById("first").value + " " + document.getElementById("last").value,
+    approved: document.getElementById("approved").value,
+    congregation: document.getElementById("congregation").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
     lang: document.getElementById("lang").value,
+    comments: document.getElementById("comments").value,
     availability: avail,
     assigned: {},
     total: 0
   });
 
-  alert("Saved!");
+  alert("Submitted!");
 }
 
 function assign() {
 
-  let shifts = [
-    "fri_5","fri_6","fri_7","fri_8","fri_close",
-    "sat_9","sat_12","sat_15","sat_18",
-    "sun_10","sun_14","sun_18"
-  ];
+  let shifts = Object.keys(people.flatMap(p => Object.keys(p.availability)));
 
-  // reset
   people.forEach(p => {
     p.assigned = {};
     p.total = 0;
@@ -83,7 +140,6 @@ function assign() {
   shifts.forEach(shift => {
     let available = people.filter(p => p.availability[shift]);
 
-    // prioritize languages
     available.sort((a,b) => a.total - b.total);
 
     let selected = available.slice(0,4);
@@ -97,12 +153,18 @@ function assign() {
   render();
 }
 
+function clearAll() {
+  people = [];
+  render();
+}
+
 function render() {
-  let html = "<table><tr><th>Name</th><th>Languages</th><th>Total</th></tr>";
+  let html = "<table><tr><th>Name</th><th>Congregation</th><th>Languages</th><th>Total Shifts</th></tr>";
 
   people.forEach(p => {
     html += `<tr>
       <td>${p.name}</td>
+      <td>${p.congregation}</td>
       <td>${p.lang}</td>
       <td>${p.total}</td>
     </tr>`;
@@ -117,3 +179,4 @@ function render() {
 
 </body>
 </html>
+``
