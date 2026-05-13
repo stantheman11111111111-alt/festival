@@ -6,22 +6,24 @@
   <style>
     body {
       font-family: Arial;
-      background: linear-gradient(to right, #eef2f7, #ffffff);
+      background: #f2f5f9;
       margin: 0;
-      padding: 0;
     }
 
     .header {
       background: #0078d4;
       color: white;
-      padding: 20px;
+      padding: 15px;
       text-align: center;
-      font-size: 24px;
-      font-weight: bold;
+    }
+
+    .header img {
+      height: 140px;
+      margin-bottom: 10px;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: 30px auto;
       display: flex;
       flex-direction: column;
@@ -32,45 +34,41 @@
       background: white;
       padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      color: #333;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
 
     input, select, textarea {
       width: 100%;
       padding: 10px;
+      margin-bottom: 10px;
       border-radius: 6px;
       border: 1px solid #ccc;
-      margin-bottom: 10px;
-      font-size: 14px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
     }
 
     .chip {
       border: 1px solid #ccc;
       border-radius: 20px;
-      padding: 6px 10px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      padding: 8px;
+      text-align: center;
       cursor: pointer;
-      background: #fafafa;
-      transition: 0.2s;
     }
 
-    .chip:hover {
-      background: #e8f3ff;
-      border-color: #0078d4;
+    .chip input {
+      display: none;
+    }
+
+    .chip input:checked + span {
+      background: #0078d4;
+      color: white;
+      border-radius: 20px;
+      padding: 6px;
+      display: inline-block;
     }
 
     button {
@@ -80,138 +78,93 @@
       padding: 12px;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 14px;
-      width: 100%;
     }
 
-    button:hover {
-      background: #005ea6;
+    .hidden {
+      display: none;
     }
 
-    .admin button {
-      width: auto;
-      margin-right: 10px;
+    .success {
+      text-align: center;
+      padding: 30px;
+      font-size: 18px;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-
-    th, td {
-      padding: 8px;
-      border: 1px solid #ddd;
-    }
-
-    th {
-      background: #0078d4;
-      color: white;
-    }
   </style>
 </head>
 
 <body>
 
 <div class="header">
-  Guelph Multicultural Festival Signup
+  <!-- ✅ YOUR LOGO -->
+  <img src="st,small,507x507-pad,600x600,f8f8f8.jpg">
+  <div>Guelph Multicultural Festival Signup</div>
 </div>
 
 <div class="container">
 
-<div class="card">
-<h3>Volunteer Info</h3>
+<!-- ✅ FORM -->
+<div class="card" id="formCard">
 
-<label>Approval Status</label>
+<h3>Volunteer Information</h3>
+
 <select id="approved">
   <option>Approved</option>
   <option>Not Yet Approved</option>
 </select>
 
-<input id="first" placeholder="First Names (include family)">
+<input id="first" placeholder="First Names">
 <input id="last" placeholder="Last Name">
 
-<label>Congregation</label>
 <select id="congregation">
   <option>Hanlon</option>
   <option>Willow Park</option>
   <option>Lakeview</option>
-  <option>Central Tagalog</option>
-  <option>Forest Heights</option>
-  <option>Amharic</option>
-  <option>Arabic</option>
-  <option>Chinese</option>
-  <option>Hindi</option>
-  <option>Punjabi</option>
-  <option>Russian</option>
-  <option>Spanish</option>
-  <option>Tigrinya</option>
-  <option>Twi</option>
   <option>Other</option>
 </select>
 
 <input id="email" placeholder="Email">
-<input id="phone" placeholder="Cell Phone Number">
-<input id="lang" placeholder="Languages (other than English)">
+<input id="phone" placeholder="Phone">
+<input id="lang" placeholder="Languages">
 
 <textarea id="comments" placeholder="Comments"></textarea>
-</div>
 
-<div class="card">
-<h3>Friday</h3>
+<h3>Shifts</h3>
+
 <div class="grid">
-<label class="chip"><input type="checkbox" value="fri_setup_m"> Setup AM</label>
-<label class="chip"><input type="checkbox" value="fri_setup_a"> Setup PM</label>
-<label class="chip"><input type="checkbox" value="fri_5"> 5 PM</label>
-<label class="chip"><input type="checkbox" value="fri_6"> 6 PM</label>
-<label class="chip"><input type="checkbox" value="fri_7"> 7 PM</label>
-<label class="chip"><input type="checkbox" value="fri_8"> 8 PM</label>
-<label class="chip"><input type="checkbox" value="fri_close"> Closing</label>
-</div>
+<label class="chip"><input type="checkbox" value="fri_5"><span>Fri 5 PM</span></label>
+<label class="chip"><input type="checkbox" value="fri_6"><span>Fri 6 PM</span></label>
+<label class="chip"><input type="checkbox" value="sat_10"><span>Sat 10 AM</span></label>
+<label class="chip"><input type="checkbox" value="sat_14"><span>Sat 2 PM</span></label>
+<label class="chip"><input type="checkbox" value="sun_12"><span>Sun 12 PM</span></label>
+<label class="chip"><input type="checkbox" value="sun_15"><span>Sun 3 PM</span></label>
 </div>
 
+<button onclick="submitForm()">Submit</button>
+
+</div>
+
+<!-- ✅ SUCCESS SCREEN -->
+<div class="card hidden" id="successCard">
+  <div class="success">
+    ✅ Thank you! Your availability has been submitted.<br><br>
+    You will be contacted when scheduling is finalized.
+  </div>
+</div>
+
+<!-- ✅ ADMIN -->
 <div class="card">
-<h3>Saturday</h3>
-<div class="grid">
-<label class="chip"><input type="checkbox" value="sat_9"> 9 AM</label>
-<label class="chip"><input type="checkbox" value="sat_10"> 10 AM</label>
-<label class="chip"><input type="checkbox" value="sat_11"> 11 AM</label>
-<label class="chip"><input type="checkbox" value="sat_12"> 12 PM</label>
-<label class="chip"><input type="checkbox" value="sat_13"> 1 PM</label>
-<label class="chip"><input type="checkbox" value="sat_14"> 2 PM</label>
-<label class="chip"><input type="checkbox" value="sat_15"> 3 PM</label>
-<label class="chip"><input type="checkbox" value="sat_16"> 4 PM</label>
-<label class="chip"><input type="checkbox" value="sat_17"> 5 PM</label>
-<label class="chip"><input type="checkbox" value="sat_18"> 6 PM</label>
-<label class="chip"><input type="checkbox" value="sat_19"> 7 PM</label>
-<label class="chip"><input type="checkbox" value="sat_20"> 8 PM</label>
-<label class="chip"><input type="checkbox" value="sat_21"> 9 PM</label>
-</div>
-</div>
-
-<div class="card">
-<h3>Sunday</h3>
-<div class="grid">
-<label class="chip"><input type="checkbox" value="sun_10"> 10 AM</label>
-<label class="chip"><input type="checkbox" value="sun_11"> 11 AM</label>
-<label class="chip"><input type="checkbox" value="sun_12"> 12 PM</label>
-<label class="chip"><input type="checkbox" value="sun_13"> 1 PM</label>
-<label class="chip"><input type="checkbox" value="sun_14"> 2 PM</label>
-<label class="chip"><input type="checkbox" value="sun_15"> 3 PM</label>
-<label class="chip"><input type="checkbox" value="sun_16"> 4 PM</label>
-<label class="chip"><input type="checkbox" value="sun_17"> 5 PM</label>
-<label class="chip"><input type="checkbox" value="sun_18"> 6 PM</label>
-</div>
-</div>
-
-<button onclick="submitForm()">Submit Availability</button>
-
-<div class="card admin">
 <h3>Admin Panel</h3>
-<button onclick="assign()">Auto Assign</button>
-<button onclick="clearAll()">Clear</button>
 
-<div id="result"></div>
+<input id="adminPass" placeholder="Enter Admin Password">
+<button onclick="unlockAdmin()">Unlock</button>
+
+<div id="adminArea" class="hidden">
+  <button onclick="assign()">Auto Assign</button>
+  <button onclick="clearAll()">Clear</button>
+  <div id="result"></div>
+</div>
+
 </div>
 
 </div>
@@ -219,60 +172,82 @@
 <script>
 
 let people = [];
+let adminUnlocked = false;
 
+// ✅ SUBMIT FORM (WITH DUPLICATE CHECK)
 function submitForm() {
+
+  let email = document.getElementById("email").value;
+
+  // prevent duplicates
+  let exists = people.some(p => p.email === email);
+  if (exists) {
+    alert("You have already submitted!");
+    return;
+  }
+
   let checks = document.querySelectorAll("input[type=checkbox]:checked");
   let avail = {};
   checks.forEach(c => avail[c.value] = true);
 
   people.push({
     name: document.getElementById("first").value + " " + document.getElementById("last").value,
+    email: email,
     congregation: document.getElementById("congregation").value,
     lang: document.getElementById("lang").value,
     availability: avail,
-    assigned: {},
     total: 0
   });
 
-  alert("Submitted!");
+  // ✅ SHOW SUCCESS SCREEN
+  document.getElementById("formCard").classList.add("hidden");
+  document.getElementById("successCard").classList.remove("hidden");
 }
 
+// ✅ ADMIN PASSWORD
+function unlockAdmin() {
+  let pass = document.getElementById("adminPass").value;
+
+  if (pass === "admin123") {
+    adminUnlocked = true;
+    document.getElementById("adminArea").classList.remove("hidden");
+  } else {
+    alert("Wrong password");
+  }
+}
+
+// ✅ AUTO ASSIGN
 function assign() {
   let shifts = Object.keys(people.flatMap(p => Object.keys(p.availability)));
 
-  people.forEach(p => {
-    p.total = 0;
-    p.assigned = {};
-  });
+  people.forEach(p => p.total = 0);
 
   shifts.forEach(shift => {
     let available = people.filter(p => p.availability[shift]);
-    available.sort((a,b) => a.total - b.total);
 
+    available.sort((a,b) => a.total - b.total);
     let selected = available.slice(0,4);
 
-    selected.forEach(p => {
-      p.assigned[shift] = true;
-      p.total++;
-    });
+    selected.forEach(p => p.total++);
   });
 
   render();
 }
 
+// ✅ CLEAR
 function clearAll() {
   people = [];
   render();
 }
 
+// ✅ DISPLAY
 function render() {
-  let html = "<table><tr><th>Name</th><th>Cong</th><th>Lang</th><th>Total</th></tr>";
+  let html = "<table><tr><th>Name</th><th>Email</th><th>Total</th></tr>";
 
   people.forEach(p => {
     html += `<tr>
       <td>${p.name}</td>
-      <td>${p.congregation}</td>
-      <td>${p.lang}</td>
+      <td>${p.email}</td>
       <td>${p.total}</td>
     </tr>`;
   });
