@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Festival Scheduler</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    label { display: block; margin: 5px 0; }
+    table { border-collapse: collapse; margin-top: 20px; }
+    td, th { border: 1px solid #ccc; padding: 6px; }
+  </style>
+</head>
+
+<body>
+
+<h2>Guelph Multicultural Festival Signup</h2>
+
+<input id="first" placeholder="First Name"><br>
+<input id="last" placeholder="Last Name"><br>
+<input id="email" placeholder="Email"><br>
+<input id="lang" placeholder="Languages"><br>
+
+<h3>Friday</h3>
+<label><input type="checkbox" value="fri_5"> 5 PM</label>
+<label><input type="checkbox" value="fri_6"> 6 PM</label>
+<label><input type="checkbox" value="fri_7"> 7 PM</label>
+<label><input type="checkbox" value="fri_8"> 8 PM</label>
+<label><input type="checkbox" value="fri_close"> Closing</label>
+
+<h3>Saturday</h3>
+<label><input type="checkbox" value="sat_9"> 9 AM</label>
+<label><input type="checkbox" value="sat_12"> 12 PM</label>
+<label><input type="checkbox" value="sat_15"> 3 PM</label>
+<label><input type="checkbox" value="sat_18"> 6 PM</label>
+
+<h3>Sunday</h3>
+<label><input type="checkbox" value="sun_10"> 10 AM</label>
+<label><input type="checkbox" value="sun_14"> 2 PM</label>
+<label><input type="checkbox" value="sun_18"> 6 PM</label>
+
+<button onclick="submitForm()">Submit</button>
+
+<hr>
+
+<h2>Admin Panel</h2>
+<button onclick="assign()">Auto Assign</button>
+
+<div id="result"></div>
+
+<script>
+
+let people = [];
+
+function submitForm() {
+  let checks = document.querySelectorAll("input[type=checkbox]:checked");
+  let avail = {};
+  checks.forEach(c => avail[c.value] = true);
+
+  people.push({
+    name: document.getElementById("first").value + " " + document.getElementById("last").value,
+    lang: document.getElementById("lang").value,
+    availability: avail,
+    assigned: {},
+    total: 0
+  });
+
+  alert("Saved!");
+}
+
+function assign() {
+
+  let shifts = [
+    "fri_5","fri_6","fri_7","fri_8","fri_close",
+    "sat_9","sat_12","sat_15","sat_18",
+    "sun_10","sun_14","sun_18"
+  ];
+
+  // reset
+  people.forEach(p => {
+    p.assigned = {};
+    p.total = 0;
+  });
+
+  shifts.forEach(shift => {
+    let available = people.filter(p => p.availability[shift]);
+
+    // prioritize languages
+    available.sort((a,b) => a.total - b.total);
+
+    let selected = available.slice(0,4);
+
+    selected.forEach(p => {
+      p.assigned[shift] = true;
+      p.total++;
+    });
+  });
+
+  render();
+}
+
+function render() {
+  let html = "<table><tr><th>Name</th><th>Languages</th><th>Total</th></tr>";
+
+  people.forEach(p => {
+    html += `<tr>
+      <td>${p.name}</td>
+      <td>${p.lang}</td>
+      <td>${p.total}</td>
+    </tr>`;
+  });
+
+  html += "</table>";
+
+  document.getElementById("result").innerHTML = html;
+}
+
+</script>
+
+</body>
+</html>
