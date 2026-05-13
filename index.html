@@ -6,65 +6,91 @@
   <style>
     body {
       font-family: Arial;
-      background: #f4f6f9;
+      background: linear-gradient(to right, #eef2f7, #ffffff);
       margin: 0;
       padding: 0;
+    }
+
+    .header {
+      background: #0078d4;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
     }
 
     .container {
       max-width: 900px;
       margin: 30px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card {
       background: white;
-      padding: 25px;
+      padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
     h3 {
-      margin-top: 25px;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 5px;
+      margin-top: 0;
+      margin-bottom: 10px;
+      color: #333;
     }
 
     input, select, textarea {
       width: 100%;
-      padding: 8px;
-      margin: 6px 0 12px;
-      border-radius: 5px;
+      padding: 10px;
+      border-radius: 6px;
       border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-size: 14px;
     }
 
-    label {
-      display: block;
-      margin-top: 8px;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 8px;
     }
 
-    .checkbox-group label {
-      display: inline-block;
-      margin-right: 15px;
+    .chip {
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      background: #fafafa;
+      transition: 0.2s;
+    }
+
+    .chip:hover {
+      background: #e8f3ff;
+      border-color: #0078d4;
     }
 
     button {
       background: #0078d4;
       color: white;
       border: none;
-      padding: 10px 15px;
-      margin-top: 10px;
+      padding: 12px;
+      border-radius: 6px;
       cursor: pointer;
-      border-radius: 5px;
+      font-size: 14px;
+      width: 100%;
     }
 
     button:hover {
       background: #005ea6;
     }
 
-    .admin {
-      margin-top: 30px;
+    .admin button {
+      width: auto;
+      margin-right: 10px;
     }
 
     table {
@@ -73,9 +99,9 @@
       margin-top: 15px;
     }
 
-    td, th {
-      border: 1px solid #ddd;
+    th, td {
       padding: 8px;
+      border: 1px solid #ddd;
     }
 
     th {
@@ -87,14 +113,19 @@
 
 <body>
 
+<div class="header">
+  Guelph Multicultural Festival Signup
+</div>
+
 <div class="container">
 
-<h2>Guelph Multicultural Festival Signup</h2>
+<div class="card">
+<h3>Volunteer Info</h3>
 
-<label>Approved by Congregation Service Committee?</label>
+<label>Approval Status</label>
 <select id="approved">
-  <option>Yes</option>
-  <option>No</option>
+  <option>Approved</option>
+  <option>Not Yet Approved</option>
 </select>
 
 <input id="first" placeholder="First Names (include family)">
@@ -123,56 +154,62 @@
 <input id="phone" placeholder="Cell Phone Number">
 <input id="lang" placeholder="Languages (other than English)">
 
-<label>Comments</label>
-<textarea id="comments" rows="3"></textarea>
+<textarea id="comments" placeholder="Comments"></textarea>
+</div>
 
+<div class="card">
 <h3>Friday</h3>
-<div class="checkbox-group">
-<label><input type="checkbox" value="fri_setup_m"> Setup Morning</label>
-<label><input type="checkbox" value="fri_setup_a"> Setup Afternoon</label>
-<label><input type="checkbox" value="fri_5"> 5 PM</label>
-<label><input type="checkbox" value="fri_6"> 6 PM</label>
-<label><input type="checkbox" value="fri_7"> 7 PM</label>
-<label><input type="checkbox" value="fri_8"> 8 PM</label>
-<label><input type="checkbox" value="fri_close"> Closing</label>
+<div class="grid">
+<label class="chip"><input type="checkbox" value="fri_setup_m"> Setup AM</label>
+<label class="chip"><input type="checkbox" value="fri_setup_a"> Setup PM</label>
+<label class="chip"><input type="checkbox" value="fri_5"> 5 PM</label>
+<label class="chip"><input type="checkbox" value="fri_6"> 6 PM</label>
+<label class="chip"><input type="checkbox" value="fri_7"> 7 PM</label>
+<label class="chip"><input type="checkbox" value="fri_8"> 8 PM</label>
+<label class="chip"><input type="checkbox" value="fri_close"> Closing</label>
+</div>
 </div>
 
+<div class="card">
 <h3>Saturday</h3>
-<div class="checkbox-group">
-<label><input type="checkbox" value="sat_9"> 9 AM</label>
-<label><input type="checkbox" value="sat_10"> 10 AM</label>
-<label><input type="checkbox" value="sat_11"> 11 AM</label>
-<label><input type="checkbox" value="sat_12"> 12 PM</label>
-<label><input type="checkbox" value="sat_13"> 1 PM</label>
-<label><input type="checkbox" value="sat_14"> 2 PM</label>
-<label><input type="checkbox" value="sat_15"> 3 PM</label>
-<label><input type="checkbox" value="sat_16"> 4 PM</label>
-<label><input type="checkbox" value="sat_17"> 5 PM</label>
-<label><input type="checkbox" value="sat_18"> 6 PM</label>
-<label><input type="checkbox" value="sat_19"> 7 PM</label>
-<label><input type="checkbox" value="sat_20"> 8 PM</label>
-<label><input type="checkbox" value="sat_21"> 9 PM</label>
+<div class="grid">
+<label class="chip"><input type="checkbox" value="sat_9"> 9 AM</label>
+<label class="chip"><input type="checkbox" value="sat_10"> 10 AM</label>
+<label class="chip"><input type="checkbox" value="sat_11"> 11 AM</label>
+<label class="chip"><input type="checkbox" value="sat_12"> 12 PM</label>
+<label class="chip"><input type="checkbox" value="sat_13"> 1 PM</label>
+<label class="chip"><input type="checkbox" value="sat_14"> 2 PM</label>
+<label class="chip"><input type="checkbox" value="sat_15"> 3 PM</label>
+<label class="chip"><input type="checkbox" value="sat_16"> 4 PM</label>
+<label class="chip"><input type="checkbox" value="sat_17"> 5 PM</label>
+<label class="chip"><input type="checkbox" value="sat_18"> 6 PM</label>
+<label class="chip"><input type="checkbox" value="sat_19"> 7 PM</label>
+<label class="chip"><input type="checkbox" value="sat_20"> 8 PM</label>
+<label class="chip"><input type="checkbox" value="sat_21"> 9 PM</label>
+</div>
 </div>
 
+<div class="card">
 <h3>Sunday</h3>
-<div class="checkbox-group">
-<label><input type="checkbox" value="sun_10"> 10 AM</label>
-<label><input type="checkbox" value="sun_11"> 11 AM</label>
-<label><input type="checkbox" value="sun_12"> 12 PM</label>
-<label><input type="checkbox" value="sun_13"> 1 PM</label>
-<label><input type="checkbox" value="sun_14"> 2 PM</label>
-<label><input type="checkbox" value="sun_15"> 3 PM</label>
-<label><input type="checkbox" value="sun_16"> 4 PM</label>
-<label><input type="checkbox" value="sun_17"> 5 PM</label>
-<label><input type="checkbox" value="sun_18"> 6 PM</label>
+<div class="grid">
+<label class="chip"><input type="checkbox" value="sun_10"> 10 AM</label>
+<label class="chip"><input type="checkbox" value="sun_11"> 11 AM</label>
+<label class="chip"><input type="checkbox" value="sun_12"> 12 PM</label>
+<label class="chip"><input type="checkbox" value="sun_13"> 1 PM</label>
+<label class="chip"><input type="checkbox" value="sun_14"> 2 PM</label>
+<label class="chip"><input type="checkbox" value="sun_15"> 3 PM</label>
+<label class="chip"><input type="checkbox" value="sun_16"> 4 PM</label>
+<label class="chip"><input type="checkbox" value="sun_17"> 5 PM</label>
+<label class="chip"><input type="checkbox" value="sun_18"> 6 PM</label>
+</div>
 </div>
 
-<button onclick="submitForm()">Submit</button>
+<button onclick="submitForm()">Submit Availability</button>
 
-<div class="admin">
-<h2>Admin Panel</h2>
+<div class="card admin">
+<h3>Admin Panel</h3>
 <button onclick="assign()">Auto Assign</button>
-<button onclick="clearAll()">Clear All</button>
+<button onclick="clearAll()">Clear</button>
 
 <div id="result"></div>
 </div>
@@ -204,8 +241,8 @@ function assign() {
   let shifts = Object.keys(people.flatMap(p => Object.keys(p.availability)));
 
   people.forEach(p => {
-    p.assigned = {};
     p.total = 0;
+    p.assigned = {};
   });
 
   shifts.forEach(shift => {
@@ -229,7 +266,7 @@ function clearAll() {
 }
 
 function render() {
-  let html = "<table><tr><th>Name</th><th>Congregation</th><th>Languages</th><th>Total</th></tr>";
+  let html = "<table><tr><th>Name</th><th>Cong</th><th>Lang</th><th>Total</th></tr>";
 
   people.forEach(p => {
     html += `<tr>
