@@ -2,18 +2,92 @@
 <html>
 <head>
   <title>Festival Scheduler</title>
+
   <style>
-    body { font-family: Arial; padding: 20px; }
-    label { display: block; margin: 5px 0; }
-    table { border-collapse: collapse; margin-top: 20px; width: 100%; }
-    td, th { border: 1px solid #ccc; padding: 6px; }
-    h3 { margin-top: 20px; }
-    input, select, textarea { margin-bottom: 5px; width: 250px; }
-    button { margin-top: 10px; padding: 6px 12px; }
+    body {
+      font-family: Arial;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      margin-top: 25px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 6px 0 12px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    label {
+      display: block;
+      margin-top: 8px;
+    }
+
+    .checkbox-group label {
+      display: inline-block;
+      margin-right: 15px;
+    }
+
+    button {
+      background: #0078d4;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: #005ea6;
+    }
+
+    .admin {
+      margin-top: 30px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    td, th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    th {
+      background: #0078d4;
+      color: white;
+    }
   </style>
 </head>
 
 <body>
+
+<div class="container">
 
 <h2>Guelph Multicultural Festival Signup</h2>
 
@@ -22,8 +96,6 @@
   <option>Yes</option>
   <option>No</option>
 </select>
-
-<br>
 
 <input id="first" placeholder="First Names (include family)">
 <input id="last" placeholder="Last Name">
@@ -47,18 +119,15 @@
   <option>Other</option>
 </select>
 
-<br>
-
 <input id="email" placeholder="Email">
 <input id="phone" placeholder="Cell Phone Number">
 <input id="lang" placeholder="Languages (other than English)">
-
-<br>
 
 <label>Comments</label>
 <textarea id="comments" rows="3"></textarea>
 
 <h3>Friday</h3>
+<div class="checkbox-group">
 <label><input type="checkbox" value="fri_setup_m"> Setup Morning</label>
 <label><input type="checkbox" value="fri_setup_a"> Setup Afternoon</label>
 <label><input type="checkbox" value="fri_5"> 5 PM</label>
@@ -66,8 +135,10 @@
 <label><input type="checkbox" value="fri_7"> 7 PM</label>
 <label><input type="checkbox" value="fri_8"> 8 PM</label>
 <label><input type="checkbox" value="fri_close"> Closing</label>
+</div>
 
 <h3>Saturday</h3>
+<div class="checkbox-group">
 <label><input type="checkbox" value="sat_9"> 9 AM</label>
 <label><input type="checkbox" value="sat_10"> 10 AM</label>
 <label><input type="checkbox" value="sat_11"> 11 AM</label>
@@ -80,9 +151,11 @@
 <label><input type="checkbox" value="sat_18"> 6 PM</label>
 <label><input type="checkbox" value="sat_19"> 7 PM</label>
 <label><input type="checkbox" value="sat_20"> 8 PM</label>
-<label><input type="checkbox" value="sat_21"> 9 PM (Close)</label>
+<label><input type="checkbox" value="sat_21"> 9 PM</label>
+</div>
 
 <h3>Sunday</h3>
+<div class="checkbox-group">
 <label><input type="checkbox" value="sun_10"> 10 AM</label>
 <label><input type="checkbox" value="sun_11"> 11 AM</label>
 <label><input type="checkbox" value="sun_12"> 12 PM</label>
@@ -91,17 +164,20 @@
 <label><input type="checkbox" value="sun_15"> 3 PM</label>
 <label><input type="checkbox" value="sun_16"> 4 PM</label>
 <label><input type="checkbox" value="sun_17"> 5 PM</label>
-<label><input type="checkbox" value="sun_18"> 6 PM (Pack-up)</label>
+<label><input type="checkbox" value="sun_18"> 6 PM</label>
+</div>
 
 <button onclick="submitForm()">Submit</button>
 
-<hr>
-
+<div class="admin">
 <h2>Admin Panel</h2>
 <button onclick="assign()">Auto Assign</button>
 <button onclick="clearAll()">Clear All</button>
 
 <div id="result"></div>
+</div>
+
+</div>
 
 <script>
 
@@ -114,12 +190,8 @@ function submitForm() {
 
   people.push({
     name: document.getElementById("first").value + " " + document.getElementById("last").value,
-    approved: document.getElementById("approved").value,
     congregation: document.getElementById("congregation").value,
-    email: document.getElementById("email").value,
-    phone: document.getElementById("phone").value,
     lang: document.getElementById("lang").value,
-    comments: document.getElementById("comments").value,
     availability: avail,
     assigned: {},
     total: 0
@@ -129,7 +201,6 @@ function submitForm() {
 }
 
 function assign() {
-
   let shifts = Object.keys(people.flatMap(p => Object.keys(p.availability)));
 
   people.forEach(p => {
@@ -139,7 +210,6 @@ function assign() {
 
   shifts.forEach(shift => {
     let available = people.filter(p => p.availability[shift]);
-
     available.sort((a,b) => a.total - b.total);
 
     let selected = available.slice(0,4);
@@ -159,7 +229,7 @@ function clearAll() {
 }
 
 function render() {
-  let html = "<table><tr><th>Name</th><th>Congregation</th><th>Languages</th><th>Total Shifts</th></tr>";
+  let html = "<table><tr><th>Name</th><th>Congregation</th><th>Languages</th><th>Total</th></tr>";
 
   people.forEach(p => {
     html += `<tr>
